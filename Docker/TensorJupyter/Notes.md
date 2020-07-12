@@ -17,6 +17,8 @@ docker run -it -p 8888:8888 tensorflow/tensorflow:nightly-py3-jupyter
 docker run -it -p 8888:8888 -v $PWD:/tmp -w /tmp tensorflow/tensorflow:nightly-py3-jupyter
 
 
+docker run -it -p 8888:8888 -v $PWD:/tmp -w /tmp tensorflow/tensorflow:nightly-py3-jupyter --notebook-dir=/Users/andrewgaitskell/Code/images-dp/Docker/TensorJupyter/tmp
+
 docker run --runtime=nvidia -it 
     --name tensorflow -p 8888:8888 
     -v /home/kneazle/data/KITTI:/data_host/KITTI kneazle/tf_od_api:part1
@@ -32,3 +34,19 @@ kneazle
 1391111 bronze badges
 
     I think your close to having it figured out --notebook-dir is the directory your seeing in jupyter, that is /tensorflow/models/research/object_detection, so you need to mount your data in a subdirectory of that directory on the container. Try: -v /home/aev21/data/KITTI:/tensorflow/models/research/object_detection/data_host/KITTI – William D. Irons Nov 2 '18 at 19:09
+
+
+docker run -d \
+  -it \
+  --name devtest \
+  --mount type=bind,source="$(pwd)"/target,target=/app \
+  nginx:latest
+  
+docker run -it \
+--name data1 \
+--mount type=bind,source="$(pwd)"/data,target=/notebook \
+-p 8888:8888 \
+-w /notebook tensorflow/tensorflow:nightly-py3-jupyter \
+--notebook-dir=/notebook
+
+docker run -it -p 8888:8888 -v /Users/andrewgaitskell/Code/images-dp/Docker/TensorJupyter/tmp:/tf/ tensorflow/tensorflow:nightly-py3-jupyter
