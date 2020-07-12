@@ -50,3 +50,7 @@ docker run -it \
 --notebook-dir=/notebook
 
 docker run -it -p 8888:8888 -v /Users/andrewgaitskell/Code/images-dp/Docker/TensorJupyter/tmp:/tf/ tensorflow/tensorflow:nightly-py3-jupyter
+
+
+https://analyticsindiamag.com/docker-solution-for-tensorflow-2-0-how-to-get-started/
+
